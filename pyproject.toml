@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "nepali-news-algorithms"
+version = "0.1.0"
+description = ""
+authors = ["Suyash Shrestha"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+gensim = "^4.3.3"
+scikit-learn = "^1.5.2"
+fastapi = {extras = ["standard"], version = "^0.115.6"}
+seaborn = "^0.13.2"
+snowballstemmer = "^2.2.0"
+pydantic-settings = "^2.6.1"
+tqdm = "^4.67.1"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
