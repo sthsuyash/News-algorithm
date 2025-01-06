@@ -3,9 +3,8 @@ import os
 
 stopwords_file = os.path.abspath(
     os.path.join(
-        os.path.dirname(__file__),  # This points to the 'utils' directory
-        # Access 'preprocessing_files/nepali_stopwords.txt'
-        "preprocessing_files", "nepali_stopwords.txt"
+        os.path.dirname(__file__), 
+        "assets", "nepali_stopwords.txt"
     )
 )
 
