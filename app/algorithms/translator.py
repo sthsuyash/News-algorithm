@@ -15,5 +15,4 @@ def translate_text(text, source_lang="ne", target_lang="en"):
     try:
         return GoogleTranslator(source=source_lang, target=target_lang).translate(text)
     except Exception as e:
-        print(f"Error translating text: {e}")
-        return text
+        raise e

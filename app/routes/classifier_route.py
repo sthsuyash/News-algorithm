@@ -14,7 +14,7 @@ class NewsClassificationRequest(BaseModel):
     text: str
 
 
-@router.get("/classify", response_model=ResponseModel)
+@router.post("/classify", response_model=ResponseModel)
 async def classify_news(request: NewsClassificationRequest):
     """
     Endpoint to classify the given news text into categories.

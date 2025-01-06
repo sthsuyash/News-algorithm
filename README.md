@@ -40,6 +40,21 @@ These instructions will get you a copy of the project up and running on your loc
 - `tests/`: Unit tests for the algorithms
 - `ui/`: Minimal UI for description and usage of the algorithms
 
+## Tests
+
+1. Navigate to the root directory
+2. Run pytest to run the tests
+
+   ```bash
+   pytest tests/
+   ```
+
+3. To run a specific test file
+
+   ```bash
+   pytest tests/test_<filename>.py
+   ```
+
 ## License
 
 This project is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License](docs/LICENSE).

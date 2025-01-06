@@ -17,3 +17,6 @@ deep-translator==1.11.4
 # api
 fastapi==0.115.6
 fastapi-cli==0.0.6
+
+# pytest
+pytest==8.3.4

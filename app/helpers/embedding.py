@@ -5,6 +5,7 @@ from gensim.models import KeyedVectors
 
 MODEL_PATH = os.path.join(
     os.path.dirname(__file__), 
+    "..",
     "ml_models", 
     "nepali_embeddings_word2vec.kv"
 )

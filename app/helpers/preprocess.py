@@ -4,6 +4,7 @@ import os
 stopwords_file = os.path.abspath(
     os.path.join(
         os.path.dirname(__file__),
+        "..",
         "assets",
         "nepali_stopwords.txt",
     )

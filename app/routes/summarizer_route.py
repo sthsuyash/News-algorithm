@@ -15,7 +15,7 @@ class SummarizationRequest(BaseModel):
     summary_length_ratio: float = 0.01
 
 
-@router.get("/summarize", response_model=ResponseModel)
+@router.post("/summarize", response_model=ResponseModel)
 async def summarize(request: SummarizationRequest):
     """
     Endpoint to summarize the given text.

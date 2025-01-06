@@ -1,5 +1,4 @@
 import os
-import secrets
 from typing import Annotated, Any, Literal
 
 from pydantic import (
@@ -28,7 +27,6 @@ class Settings(BaseSettings):
         extra="ignore",
     )
     API_V1_STR: str = "/api/v1"
-    SECRET_KEY: str = secrets.token_urlsafe(32)
     # 60 minutes * 24 hours * 8 days = 8 days
     FRONTEND_HOST: str = "http://localhost:5005"
     ENVIRONMENT: Literal["local", "staging", "production"] = "local"

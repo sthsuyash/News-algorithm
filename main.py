@@ -8,8 +8,8 @@ from app.routes import (
     summarizer,
     translator,
     classifier,
-    recommendor,
-    sentiment_analyer,
+    # recommendor,
+    # sentiment_analyer,
 )
 
 # Define the API router
@@ -26,11 +26,11 @@ async def home():
     )
 
 
-api_router.include_router(summarizer.router)
-api_router.include_router(translator.router)
-api_router.include_router(classifier.router)
-api_router.include_router(recommendor.router)
-api_router.include_router(sentiment_analyer.router)
+api_router.include_router(summarizer)
+api_router.include_router(translator)
+api_router.include_router(classifier)
+# api_router.include_router(recommendor.router)
+# api_router.include_router(sentiment_analyer.router)
 
 
 app = FastAPI(
@@ -49,3 +49,9 @@ if settings.all_cors_origins:
     )
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+    
