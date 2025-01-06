@@ -1,7 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
 from unittest.mock import patch
-
 from main import app
 
 client = TestClient(app)
@@ -14,9 +13,7 @@ def mock_translate_text():
 
 
 def test_translate_success(mock_translate_text):
-    """
-    
-    """
+    """ """
     mock_translate_text.return_value = "This is a test."
     response = client.post(
         "/api/v1/translate",
@@ -43,7 +40,7 @@ def test_translate_error(mock_translate_text):
             "target_language": "eng",
         },
     )
-    
+
     assert response.status_code == 200
     data = response.json()
     print(f"Data: {data}")
