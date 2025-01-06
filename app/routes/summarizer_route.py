@@ -1,7 +1,8 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from news_algorithms.text_summarizer.summarizer import Summarizer
-from app.model import ResponseModel
+
+from app.core.model import ResponseModel
+from app.news_algorithms.text_summarizer.summarizer import Summarizer
 
 router = APIRouter()
 
@@ -30,15 +31,17 @@ async def summarize(request: SummarizationRequest):
         summary_length_ratio = request.summary_length_ratio
 
         summary = summarizer.show_summary(
-            text=text,
+            text=text, 
             length_sentence_predict=summary_length_ratio
         )
 
         return ResponseModel(
             status_code=200,
             message="Summary generated successfully.",
-            data={"summary": summary},
-            error=None
+            data={
+                "summary": summary
+            },
+            error=None,
         )
 
     except Exception as e:
@@ -46,5 +49,5 @@ async def summarize(request: SummarizationRequest):
             status_code=500,
             message="An error occurred while generating the summary.",
             data=None,
-            error=str(e)
+            error=str(e),
         )

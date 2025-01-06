@@ -1,22 +1,19 @@
-from app.model import ResponseModel
-
 from fastapi import FastAPI
 from fastapi import APIRouter
 from starlette.middleware.cors import CORSMiddleware
 
-from app.config import settings
-
-
+from app.core.config import settings
+from app.core.model import ResponseModel
 from app.routes import (
-    summary,
-    news_classifier,
-    news_recommendation,
-    sentiment_analysis
+    summarizer,
+    translator,
+    classifier,
+    recommendor,
+    sentiment_analyer,
 )
 
+# Define the API router
 api_router = APIRouter()
-
-# home route
 
 
 @api_router.get("/")
@@ -25,17 +22,19 @@ async def home():
         status_code=200,
         message="Welcome to Nepali News Algorithm API",
         data=None,
-        error=None
+        error=None,
     )
 
-api_router.include_router(summary.router)
-api_router.include_router(news_classifier.router)
-# api_router.include_router(news_recommendation.router)
-# api_router.include_router(sentiment_analysis.router)
+
+api_router.include_router(summarizer.router)
+api_router.include_router(translator.router)
+api_router.include_router(classifier.router)
+api_router.include_router(recommendor.router)
+api_router.include_router(sentiment_analyer.router)
 
 
 app = FastAPI(
-    title="Nepali News API",
+    title="Nepali News Algorithms API",
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
 )
 

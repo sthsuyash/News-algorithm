@@ -1,9 +1,12 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from app.model import ResponseModel
-from news_algorithms.news_classifier import classifier
+
+from app.core.model import ResponseModel
+from app.core.logging import setup_logging
+from app.algorithm.news_classifier import classifier
 
 router = APIRouter()
+logger = setup_logging()
 
 
 class NewsClassificationRequest(BaseModel):
@@ -23,22 +26,22 @@ async def classify_news(request: NewsClassificationRequest):
     """
     try:
         text = request.text
-        predicted_category, predicted_label = classifier.predict_category_with_label(text)
+        predicted_category, predicted_label = classifier.predict_category_with_label(
+            text
+        )
 
         return ResponseModel(
             status_code=200,
             message="News classification successful.",
-            data={
-                "category": predicted_category,
-                "label": predicted_label
-            },
-            error=None
+            data={"category": predicted_category, "label": predicted_label},
+            error=None,
         )
 
     except Exception as e:
+        logger.error(f"An error occurred while classifying the news: {e}")
         return ResponseModel(
             status_code=500,
             message="An error occurred while classifying the news.",
             data=None,
-            error=str(e)
+            error=str(e),
         )

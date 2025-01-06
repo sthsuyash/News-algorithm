@@ -1,6 +1,7 @@
 dataset/
 poetry.lock
 models/
+ml_models/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files

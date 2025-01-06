@@ -1,3 +1,4 @@
+import os
 import secrets
 from typing import Annotated, Any, Literal
 
@@ -18,8 +19,11 @@ def parse_cors(v: Any) -> list[str] | str:
 
 
 class Settings(BaseSettings):
+    ENV_FILE_LOCATION: str = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..", "..", ".env")
+    )
     model_config = SettingsConfigDict(
-        env_file="../.env",
+        env_file=ENV_FILE_LOCATION,
         env_ignore_empty=True,
         extra="ignore",
     )
@@ -30,15 +34,17 @@ class Settings(BaseSettings):
     ENVIRONMENT: Literal["local", "staging", "production"] = "local"
 
     BACKEND_CORS_ORIGINS: Annotated[
-        list[AnyUrl] | str, BeforeValidator(parse_cors)
+        list[AnyUrl] | str, 
+        BeforeValidator(parse_cors)
     ] = []
 
-    @computed_field  # type: ignore[prop-decorator]
+    @computed_field 
     @property
     def all_cors_origins(self) -> list[str]:
-        return [str(origin).rstrip("/") for origin in self.BACKEND_CORS_ORIGINS] + [
-            self.FRONTEND_HOST
-        ]
+        return [
+            str(origin).rstrip("/") 
+            for origin in self.BACKEND_CORS_ORIGINS
+        ] + [self.FRONTEND_HOST]
 
 
-settings = Settings()  # type: ignore
+settings = Settings() 
