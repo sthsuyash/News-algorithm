@@ -1,10 +1,13 @@
 import os
 import joblib
-from app.algorithms.helpers.preprocess import preprocess
+
+from app.helpers.preprocess import preprocess
 
 
 CLASSIFIER_MODEL_PATH = os.path.join(
-    os.path.dirname(__file__), "models", "Logistic_Regression_best_model.pkl"
+    os.path.dirname(__file__),
+    "ml_models",
+    "Logistic_Regression_best_classifier_model.pkl",
 )
 
 prediction_map = {
