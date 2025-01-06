@@ -1,6 +1,6 @@
 # Nepali News Algorithms
 
-This repository contains the API and algorithms for the Nepali News project. The project aims to provide a platform for the different news machine learning algorithms that can be used in the Nepali news Portals.
+This repository contains the API and algorithms for the Nepali News project. The project aims to provide a platform for the different news machine learning algorithms that can be used in the Nepali news Portals. This also contains a minimal ui for describing the algorithms and a platform to use it, without major news portals having to implement the algorithms themselves.
 
 ## Getting Started
 
@@ -37,6 +37,8 @@ These instructions will get you a copy of the project up and running on your loc
   - `news_classifier/`: News classifier for the Nepali language
   - `news_recommendation/`: News recommendation for the Nepali language
   - `text_summarizer/`: Text summarizer for the news articles
+- `tests/`: Unit tests for the algorithms
+- `ui/`: Minimal UI for description and usage of the algorithms
 
 ## License
 

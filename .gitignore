@@ -20,8 +20,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
 parts/
 sdist/
 var/
@@ -290,6 +288,7 @@ out
 # Nuxt.js build / generate output
 .nuxt
 dist
+dist-ssr
 
 # Gatsby files
 .cache/
@@ -595,6 +594,7 @@ coverage*[.json, .xml, .info]
 # Visual Studio code coverage results
 *.coverage
 *.coveragexml
+*.local
 
 # NCrunch
 _NCrunch_*
@@ -801,3 +801,14 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
