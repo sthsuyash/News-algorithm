@@ -7,10 +7,13 @@ scikit-learn==1.5.2
 seaborn==0.13.2
 snowballstemmer==2.2.0
 
-# api
-fastapi==0.115.6
-fastapi-cli==0.0.6
-
 # recommendation-system
 
 # sentiment-analysis
+
+# translator
+deep-translator==1.11.4
+
+# api
+fastapi==0.115.6
+fastapi-cli==0.0.6

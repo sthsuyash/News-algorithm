@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Suyash Shrestha"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -14,6 +15,7 @@ seaborn = "^0.13.2"
 snowballstemmer = "^2.2.0"
 pydantic-settings = "^2.6.1"
 tqdm = "^4.67.1"
+deep-translator = "^1.11.4"
 
 
 [tool.poetry.group.dev.dependencies]
