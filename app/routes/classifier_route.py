@@ -3,10 +3,11 @@ from pydantic import BaseModel
 
 from app.core.model import ResponseModel
 from app.core.logging import setup_logging
-from app.algorithm.news_classifier import classifier
+from app.algorithms.news_classifier import CategoryPredictor
 
 router = APIRouter()
 logger = setup_logging()
+news_classifier = CategoryPredictor()
 
 
 class NewsClassificationRequest(BaseModel):
@@ -26,9 +27,7 @@ async def classify_news(request: NewsClassificationRequest):
     """
     try:
         text = request.text
-        predicted_category, predicted_label = classifier.predict_category_with_label(
-            text
-        )
+        predicted_category, predicted_label = news_classifier.predict(text)
 
         return ResponseModel(
             status_code=200,
@@ -39,6 +38,7 @@ async def classify_news(request: NewsClassificationRequest):
 
     except Exception as e:
         logger.error(f"An error occurred while classifying the news: {e}")
+
         return ResponseModel(
             status_code=500,
             message="An error occurred while classifying the news.",

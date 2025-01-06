@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 from app.core.model import ResponseModel
 from app.core.logging import setup_logging
-from app.news_algorithms.text_translator.translator import translate_text
+from app.algorithms.translator import translate_text
 
 router = APIRouter()
 logger = setup_logging()
@@ -42,10 +42,9 @@ async def translate(request: TranslationRequest):
 
     except Exception as e:
         logger.error(
-            f"An error occurred while translating the text from {source_language} to {target_language}.",
-            str(e),
+            f"An error occurred while translating the text from {source_language} to {target_language}: {e}"
         )
-        
+
         return ResponseModel(
             status_code=500,
             message="An error occurred while translating the text.",
