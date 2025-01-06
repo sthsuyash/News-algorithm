@@ -3,9 +3,8 @@ import os
 
 stopwords_file = os.path.abspath(
     os.path.join(
-        os.path.dirname(__file__),  # This points to the 'utils' directory
-        # Access 'preprocessing_files/nepali_stopwords.txt'
-        "preprocessing_files",
+        os.path.dirname(__file__),
+        "assets",
         "nepali_stopwords.txt",
     )
 )
@@ -14,9 +13,7 @@ stopwords_file = os.path.abspath(
 # Pre-compiled regex patterns for performance
 HTML_TAGS_PATTERN = re.compile(r"<.*?>")
 WHITESPACE_PATTERN = re.compile(r"\s+")
-SPECIAL_CHARACTERS_PATTERN = re.compile(
-    r"(?<!\d)\.(?!\d)|[^\u0900-\u097F\u0966-\u096F\s.]"
-)
+SPECIAL_CHARACTERS_PATTERN = re.compile(r"(?<!\d)\.(?!\d)|[^\u0900-\u097F\u0966-\u096F\s.]")
 ENGLISH_DIGITS_PATTERN = re.compile(r"[0-9]")
 URL_PATTERN = re.compile(r"https?://\S+|www\.\S+")
 
@@ -66,7 +63,6 @@ def remove_special_characters(text: str) -> str:
     return text
 
 
-# Load stopwords with error handling
 try:
     with open(stopwords_file, "r", encoding="utf-8") as f:
         stopwords = f.read().splitlines()
