@@ -87,7 +87,7 @@ letters_to_normalize = {
 }
 
 
-def preprocess(text: str, remove_stopwords: bool = True) -> str:
+def preprocess_text(text: str, remove_stopwords: bool = True) -> str:
     """
     Preprocess the input text by removing HTML tags, extra whitespaces, normalizing characters
 
@@ -119,3 +119,41 @@ def preprocess(text: str, remove_stopwords: bool = True) -> str:
     processed_sentence = " ".join(tokens)
 
     return processed_sentence
+
+
+def preprocess(text: str, remove_stopwords: bool = True) -> list[str]:
+    """
+    Preprocess the input text by removing HTML tags, extra whitespaces, normalizing characters
+
+    Args:
+        text (str): The input raw text to be preprocessed.
+        remove_stopwords (bool): Flag to indicate whether to remove stopwords or not.
+
+    Returns:
+        list[str]: List of processed sentences after tokenization and normalization.
+    """
+    # Step 1: Remove HTML tags and extra whitespaces
+    text = remove_html_tags(text)
+    text = remove_extra_whitespace(text)
+
+    # Step 2: Split the text into sentences based on the full stop character (।) and filter out empty sentences
+    sentences = [sentence.strip() for sentence in text.split("।") if sentence.strip()]
+
+    # Step 3: Process each sentence individually
+    processed_sentences = []
+    for sentence in sentences:
+        sentence = remove_special_characters(sentence)
+        tokens = sentence.split()
+
+        # Step 4: Normalize letters and optionally remove stopwords
+        tokens = [
+            letters_to_normalize.get(word, word)
+            for word in tokens
+            if not remove_stopwords or word not in stopwords
+        ]
+
+        # Join tokens back into a processed sentence
+        processed_sentence = " ".join(tokens)
+        processed_sentences.append(processed_sentence)
+
+    return processed_sentences

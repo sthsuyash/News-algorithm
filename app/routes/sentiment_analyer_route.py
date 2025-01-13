@@ -1,20 +1,20 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from app.core.model import ResponseModel
+from app.core.response_model import ResponseModel
 from app.core.logging import setup_logging
 from app.algorithms.sentiment_analyzer import SentimentAnalyzer
 
 router = APIRouter()
 logger = setup_logging()
-sa = SentimentAnalyzer()
+sentiment_analyzer = SentimentAnalyzer()
 
 
 class SentimentAnalysisRequest(BaseModel):
     text: str
 
 
-@router.post("/analyze", response_model=ResponseModel)
+@router.post("/analyze-sentiment", response_model=ResponseModel)
 async def analyze_sentiment(request: SentimentAnalysisRequest):
     """
     Endpoint to analyze the sentiment of the given text.
@@ -27,13 +27,15 @@ async def analyze_sentiment(request: SentimentAnalysisRequest):
     """
     try:
         text = request.text
-
-        sentiment = sa.predict_sentiment(text)
+        probability, sentiment = sentiment_analyzer.predict_sentiment(text)
 
         return ResponseModel(
             status_code=200,
             message="Sentiment analysis successful.",
-            data={"sentiment": sentiment},
+            data={
+                "sentiment": sentiment, 
+                "probability": probability
+            },
             error=None,
         )
 

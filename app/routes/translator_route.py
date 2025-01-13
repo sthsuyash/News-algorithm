@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from app.core.model import ResponseModel
+from app.core.response_model import ResponseModel
 from app.core.logging import setup_logging
 from app.algorithms.translator import translate_text
 
