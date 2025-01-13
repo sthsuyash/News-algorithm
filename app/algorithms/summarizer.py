@@ -5,22 +5,18 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 from app.helpers.embedding import Embeddings
 from app.helpers.preprocess import preprocess
+from app.core.logging import setup_logging
+
+logger = setup_logging()
 
 
 class Summarizer:
-    def __init__(self, *args, **kwargs):
-        """
-        Initializes the Summarizer class by loading the word embeddings.
-
-        Args:
-            *args: Variable length argument list.
-            **kwargs: Arbitrary keyword arguments.
-        """
-        print("Loading Embedding...")
+    def __init__(self):
+        logger.info("Loading Embedding...")
         self.word_vec = Embeddings().load_vector()
         self.key_to_index = self.word_vec.key_to_index
         self.vector_size = self.word_vec.vector_size
-        print("Embedding loaded successfully.")
+        logger.info("Embedding loaded successfully.")
 
     def generate_centroid_tfidf(self, sentences: List[str]) -> np.ndarray:
         """
