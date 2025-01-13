@@ -10,6 +10,7 @@ snowballstemmer==2.2.0
 # recommendation-system
 
 # sentiment-analysis
+torch==2.5.1
 
 # translator
 deep-translator==1.11.4

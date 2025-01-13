@@ -3,13 +3,13 @@ from fastapi import APIRouter
 from starlette.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
-from app.core.model import ResponseModel
+from app.core.response_model import ResponseModel
 from app.routes import (
     summarizer,
     translator,
     classifier,
     # recommendor,
-    # sentiment_analyer,
+    sentiment_analyer,
 )
 
 # Define the API router
@@ -29,8 +29,8 @@ async def home():
 api_router.include_router(summarizer)
 api_router.include_router(translator)
 api_router.include_router(classifier)
-# api_router.include_router(recommendor.router)
-# api_router.include_router(sentiment_analyer.router)
+# api_router.include_router(recommendor)
+api_router.include_router(sentiment_analyer)
 
 
 app = FastAPI(
@@ -54,4 +54,3 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(app, host="0.0.0.0", port=8000)
-    
