@@ -19,6 +19,7 @@ class NewsRecommendationSystem:
         days_since_pub = (datetime.now() - datetime.strptime(date, "%Y-%m-%d")).days
         return np.exp(-self.time_decay_factor * days_since_pub)
 
+
     def vectorize_articles(self):
         """Convert articles into a feature matrix."""
         # Extract headline keywords using TF-IDF
@@ -35,6 +36,24 @@ class NewsRecommendationSystem:
             ]
         )
 
+        # Encode sentiments
+        sentiments = list(set(article["sentiment"] for article in self.articles))
+        sentiment_index = {sentiment: idx for idx, sentiment in enumerate(sentiments)}
+        sentiment_vectors = np.array(
+            [
+                [1 if article["sentiment"] == sentiment else 0 for sentiment in sentiments]
+                for article in self.articles
+            ]
+        )
+
+        # Normalize visit counts
+        visit_counts = np.array(
+            [article["visitCount"] for article in self.articles]
+        ).reshape(-1, 1)
+        visit_counts = (visit_counts - visit_counts.min()) / (
+            visit_counts.max() - visit_counts.min()
+        )
+
         # Apply time decay to publication dates
         time_decay = np.array(
             [self._calculate_time_decay(article["date"]) for article in self.articles]
@@ -42,7 +61,13 @@ class NewsRecommendationSystem:
 
         # Combine features
         self.feature_matrix = np.hstack(
-            (headline_vectors, category_vectors, time_decay)
+            (
+                headline_vectors,
+                category_vectors,
+                sentiment_vectors,
+                visit_counts,
+                time_decay,
+            )
         )
 
     def fit(self, articles):

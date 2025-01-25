@@ -85,40 +85,35 @@ letters_to_normalize = {
 }
 
 
-def preprocess(text: str) -> list:
+def preprocess(text: str, remove_stopwords: bool = True) -> list[str]:
     """
-    Preprocess the input text by removing HTML tags, extra whitespaces, normalizing characters,
-    and splitting into sentences.
+    Preprocess the input text by removing HTML tags, extra whitespaces, normalizing characters
 
     Args:
         text (str): The input raw text to be preprocessed.
+        remove_stopwords (bool): Flag to indicate whether to remove stopwords or not.
 
     Returns:
-        list: A list of preprocessed sentences with normalized characters and tokenized words.
+        list[str]: List of processed sentences after tokenization and normalization.
     """
     # Step 1: Remove HTML tags and extra whitespaces
     text = remove_html_tags(text)
     text = remove_extra_whitespace(text)
 
-    # Step 2: Split the text into sentences based on the Nepali punctuation '।' and filter out empty sentences
-    sentences = [
-        sentence.strip()
-        for sentence in text.split(u"।")
-        if sentence.strip()
-    ]
+    # Step 2: Split the text into sentences based on the full stop character (।) and filter out empty sentences
+    sentences = [sentence.strip() for sentence in text.split("।") if sentence.strip()]
 
-    # Step 3: Process each sentence
+    # Step 3: Process each sentence individually
     processed_sentences = []
     for sentence in sentences:
-        # Remove special characters and tokenize the sentence
         sentence = remove_special_characters(sentence)
         tokens = sentence.split()
 
-        # Normalize letters and remove stopwords in one loop
+        # Step 4: Normalize letters and optionally remove stopwords
         tokens = [
             letters_to_normalize.get(word, word)
             for word in tokens
-            if word not in stopwords
+            if not remove_stopwords or word not in stopwords
         ]
 
         # Join tokens back into a processed sentence

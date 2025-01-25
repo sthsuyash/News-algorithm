@@ -16,7 +16,7 @@ class CategoryPredictor:
             os.path.dirname(__file__),
             "..",
             "ml_models",
-            "Logistic_Regression_best_classifier_model.pkl",
+            "Logistic_Regression_classifier_model.pkl",
         )
 
         self.prediction_map = {
@@ -31,7 +31,7 @@ class CategoryPredictor:
             8: "Swasthya",
             9: "Viswa",
         }
-        
+
         self.model = self._load_model()
 
     def _load_model(self):

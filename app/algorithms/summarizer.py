@@ -12,11 +12,11 @@ logger = setup_logging()
 
 class Summarizer:
     def __init__(self):
-        logger.info("Loading Embedding...")
+        logger.info("Loading word embeddings for summarization")
         self.word_vec = Embeddings().load_vector()
         self.key_to_index = self.word_vec.key_to_index
         self.vector_size = self.word_vec.vector_size
-        logger.info("Embedding loaded successfully.")
+        logger.info("Word embeddings loaded successfully")
 
     def generate_centroid_tfidf(self, sentences: List[str]) -> np.ndarray:
         """
@@ -139,7 +139,7 @@ class Summarizer:
         Returns:
             str: The generated summary.
         """
-        sentences = preprocess(text)
+        sentences = preprocess(text, remove_stopwords=False)
 
         # Calculate the total length of the text in characters
         total_text_length = len(text)
