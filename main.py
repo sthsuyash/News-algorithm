@@ -8,7 +8,7 @@ from app.routes import (
     summarizer,
     translator,
     classifier,
-    # recommendor,
+    news_recommender,
     sentiment_analyer,
 )
 
@@ -29,7 +29,8 @@ async def home():
 api_router.include_router(summarizer)
 api_router.include_router(translator)
 api_router.include_router(classifier)
-# api_router.include_router(recommendor)
+api_router.include_router(news_recommender)
+print("news_recommender", news_recommender)
 api_router.include_router(sentiment_analyer)
 
 
@@ -38,15 +39,13 @@ app = FastAPI(
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
 )
 
-# Set all CORS enabled origins
-if settings.all_cors_origins:
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=settings.all_cors_origins,
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
