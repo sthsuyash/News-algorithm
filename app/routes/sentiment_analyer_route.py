@@ -27,7 +27,9 @@ async def analyze_sentiment(request: SentimentAnalysisRequest):
     """
     try:
         text = request.text
-        probability, sentiment = sentiment_analyzer.predict_sentiment(text)
+        sentiment_data = sentiment_analyzer.predict_sentiment(text)
+        sentiment = sentiment_data["predicted_sentiment"]
+        probability = sentiment_data["probability"]
 
         return ResponseModel(
             status_code=200,

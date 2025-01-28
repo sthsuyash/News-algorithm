@@ -111,8 +111,8 @@ class SentimentAnalyzer:
         probability = probabilities[0, predicted_label].item()
 
         return {
-            self.labels_dict.get(predicted_label, "Unknown"),
-            probability,
+            "predicted_sentiment": self.labels_dict.get(predicted_label, "Unknown"),
+            "probability": probability,
         }
 
 
